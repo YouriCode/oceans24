@@ -1,9 +1,9 @@
 #include <WiFi.h>
 #include <ArduinoWebsockets.h>
 
-const char* ssid = "YOUR_WIFI_SSID"; 
-const char* password = "YOUR_WIFI_PASSWORD";
-const char* websocket_server = "ws://localhost:3000"; 
+const char* ssid = "iphone13"; 
+const char* password = "xiao0718";
+const char* websocket_server = "http://172.20.10.13:3000"; 
 
 using namespace websockets;
 WebsocketsClient client;
@@ -15,9 +15,10 @@ void setup() {
         delay(1000);
         Serial.println("Connecting to WiFi...");
     }
+    Serial.println("Connected");
 
-    client.onMessage(onMessage);
     client.connect(websocket_server);
+    
 }
 
 void onMessage(WebsocketsMessage message) {
@@ -26,6 +27,7 @@ void onMessage(WebsocketsMessage message) {
 }
 
 void loop() {
+    client.onMessage(onMessage);
     client.poll();
 }
 
