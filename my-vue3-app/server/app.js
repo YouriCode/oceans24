@@ -31,11 +31,11 @@ const io = require("socket.io")(server, {
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
-app.get('/userpage', (req, res) => {
+app.get('/ocean-2/userpage', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist', 'user.html'));
 });
 
-app.get('/datapage', (req, res) => {
+app.get('/ocean-2/datapage', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist', 'data.html'));
 });
 
