@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const cors = require('cors'); 
+const { getuid } = require('process');
 
 const PORT = process.env.PORT || 3010;
 const app = express();
@@ -29,11 +30,15 @@ app.use(express.json());
 app.use('/ocean-2', express.static(path.join(__dirname, '../dist')));
 
 let messages = []; 
-
+//let imageCount = 0;
 
 app.post('/ocean-2/messages', (req, res) => {
     const message = req.body;
-    message.id = Date.now();
+    message.id = Date.now().toString();
+    // if (message.type == "image") {
+    //   imageCount++;
+    // }
+    messages = [];
     messages.push(message);
     res.status(201).send({ message: 'Message received', id: message.id });
 });
@@ -52,3 +57,9 @@ app.get('/ocean-2/datapage', (req, res) => {
 });
 
 server.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+
+// setTimeout(()=> {
+//   console.log(imageCount);
+//   imageCount--;
+//   if (imageCount <= 0) imageCount = 0;
+// }, 2000);

@@ -77,6 +77,7 @@ import s8 from './assets/notificationsounds/snapchat.mp3';
 
 const sounds = [new Audio(s1), new Audio(s2), new Audio(s3), new Audio(s4), new Audio(s5), new Audio(s6), new Audio(s7), new Audio(s8)];
 const data = ref([]);
+const message = ref([]);
 
 document.addEventListener("DOMContentLoaded", function () {
   setInterval(changeSlide, 10000);
@@ -100,20 +101,28 @@ function playSound() {
   sounds[r].play();
 }
 
+let lastMessage = {};
 
 async function fetchMessages() {
   try {
-    const response = await fetch("https://hyblab.polytech.univ-nantes.fr/ocean-2/messages");
+    const response = await fetch("http://192.168.13.198:3010/ocean-2/messages");
     if (response.ok) {
       const messages = await response.json();
-      data.value = messages.map(msg => ({
-        id: msg.id,
-        address: msg.address,
-        article: msg.type === 'text' ? "un" : "une",
-        type: msg.type === 'text' ? "message" : msg.type,
-        size: msg.type === 'text' ? `${msg.content.length} o` : msg.type === 'image' ? "1.3 Mo" : "45 Mo"
-      }));
-      playSound();
+      if (messages[0].id != lastMessage.id) {
+        console.log(messages[0].content);
+        message.value = messages.map(msg => ({
+          id: msg.id,
+          address: msg.address,
+          article: msg.type === 'text' ? "un" : "une",
+          type: msg.type === 'text' ? "message" : msg.type,
+          size: msg.type === 'text' ? `${msg.content.length} o` : msg.type === 'image' ? "1.3 Mo" : "45 Mo"
+        }));
+        console.log(data);
+        data.value.push(message.value[0]);
+        console.log(data);
+        lastMessage = messages[0];  
+        playSound();
+      }
     } else {
       throw new Error('Failed to fetch messages.');
     }
@@ -124,7 +133,6 @@ async function fetchMessages() {
 
 
 onMounted(() => {
-  fetchMessages();
   setInterval(fetchMessages, 1000); 
 });
 

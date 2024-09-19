@@ -120,7 +120,7 @@ async function sendMessage(type, content) {
   };
 
   try {
-    const response = await fetch("https://hyblab.polytech.univ-nantes.fr/ocean-2/messages", {
+    const response = await fetch("http://192.168.13.198:3010/ocean-2/messages", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -139,21 +139,22 @@ async function sendMessage(type, content) {
 }
 
 // Function to periodically fetch messages
-async function fetchMessages() {
-  try {
-    const response = await fetch("https://hyblab.polytech.univ-nantes.fr/ocean-2/messages");
-    if (!response.ok) throw new Error('Network response was not ok.');
-    const data = await response.json();
-    messages.value = data; // Update local messages with server data
-  } catch (error) {
-    console.error('Error fetching messages:', error);
-  }
-}
+// async function fetchMessages() {
+//   try {
+//     const response = await fetch("https://hyblab.polytech.univ-nantes.fr/ocean-2/messages");
+//     if (!response.ok) throw new Error('Network response was not ok.');
+//     const data = await response.json();
+//     messages.value = data; // Update local messages with server data
+//   } catch (error) {
+//     console.error('Error fetching messages:', error);
+//   }
+// }
 
 // Fetch messages on component mount and set interval for periodic fetching
 onMounted(() => {
-  fetchMessages();
-  setInterval(fetchMessages, 1000); // Adjust interval as needed
+  console.log("mounted")
+  //fetchMessages();
+  //setInterval(fetchMessages, 1000); // Adjust interval as needed
 });
 
 </script>
