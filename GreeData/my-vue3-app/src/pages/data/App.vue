@@ -50,7 +50,7 @@
         </section>
       </section>
       <main>
-        <h2>Green Data</h2>
+        <h2>Blue Data</h2>
         <section class="images">
           <img class="maqutte" src="./assets/maqutte.gif" alt="">
         </section>

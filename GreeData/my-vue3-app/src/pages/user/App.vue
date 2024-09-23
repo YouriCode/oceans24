@@ -2,7 +2,7 @@
   <div id="app">
     <header>
       <!-- Chat Header -->
-      <h1>Green Data</h1>
+      <h1>Blue Data</h1>
     </header>
 
     <div class="chat-window">
