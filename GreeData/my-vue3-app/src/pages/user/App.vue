@@ -120,7 +120,7 @@ async function sendMessage(type, content) {
   };
 
   try {
-    const response = await fetch("http://192.168.13.198:3010/ocean-2/messages", {
+    const response = await fetch("http://163.172.38.85:3010/ocean-2/messages", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

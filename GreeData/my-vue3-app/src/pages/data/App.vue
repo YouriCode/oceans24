@@ -105,7 +105,7 @@ let lastMessage = {};
 
 async function fetchMessages() {
   try {
-    const response = await fetch("http://192.168.13.198:3010/ocean-2/messages");
+    const response = await fetch("http://163.172.38.85:3010/ocean-2/messages");
     if (response.ok) {
       const messages = await response.json();
       if (messages[0].id != lastMessage.id) {
