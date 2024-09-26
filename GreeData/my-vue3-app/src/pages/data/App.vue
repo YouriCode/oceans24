@@ -9,14 +9,13 @@
           <div class="slides-container">
             <div class="slide slide1">
               <h4>ENERGIE</h4>
-              <p class="text">En moyenne, un datacenter de 10000m² consomme <strong>autant d’énergie</strong> qu’une
-                ville de</p>
-              <p class="big-text">50 000</p>
-              <p class="small-text">habitants, sur une année.</p>
+              <p class="big-text">4%</p>
+              <p class="text">de l’énergie mondiale est consommée par les datacenters.</p>
+              <p class="text"> <strong>Ça sera le double en 2050.</strong></p>
             </div>
             <div class="slide slide2">
               <h4>ENERGIE</h4>
-              <p class="big-text">50%</p>
+              <p class="big-text">40%</p>
               <p class="text">de la facture d’un datacenter correspond aux <strong>dépenses énergétiques</strong> liées
                 au refroidissement des serveurs.</p>
             </div>
@@ -24,15 +23,14 @@
               <p class="big-text">MESSAGE</p>
               <p class="small-text">1 octet par caractère. Message court : ~100 o.</p>
               <p class="big-text">IMAGE HD</p>
-              <p class="small-text">10 000x plus qu’un message. ~1 Mo.</p>
+              <p class="small-text">10 000x plus volumineux qu’un message. ~1 Mo.</p>
               <p class="big-text">VIDEO HD</p>
               <p class="small-text">1 à 2 Mo/seconde. 30s compressées : ~45 Mo.</p>
             </div>
             <div class="slide slide4">
               <h4>EMPREINTE</h4>
-              <p class="big-text">25%</p>
-              <p class="text">des émissions mondiales de gaz à effet de serre liées au numérique, sont émises par les
-                datacenters.</p>
+              <p class="big-text">2%</p>
+              <p class="text">des émissions mondiales de carbone sont générées par les datacenters. C'est l'équivalent du <strong>trafic aérien</strong>.</p>
             </div>
           </div>
         </section>
@@ -43,7 +41,7 @@
           <div class="logs-content">
             <div v-for="log in data" :key="log.id" class="logs-text">
               <div>
-                <p>{{ log.address }} a envoyé {{ log.article }} <strong>{{ log.type }}</strong> ({{ log.size }})</p>
+                <p class="highlight">{{ log.address }} a envoyé {{ log.article }} <strong :style="{ color: log.textColor }">{{ log.type }}</strong> <span :style="{color: log.textColor }"> ({{ log.size }})</span></p>
               </div>
             </div>
           </div>
@@ -115,11 +113,10 @@ async function fetchMessages() {
           address: msg.address,
           article: msg.type === 'text' ? "un" : "une",
           type: msg.type === 'text' ? "message" : msg.type,
-          size: msg.type === 'text' ? `${msg.content.length} o` : msg.type === 'image' ? "1.3 Mo" : "45 Mo"
+          size: msg.type === 'text' ? `${msg.content.length} o` : msg.type === 'image' ? "1.3 Mo" : "45 Mo",
+          textColor: msg.type === 'text' ? "#58FF5D" : msg.type === 'image' ? "#FFBF58" : "#FF585A"
         }));
-        console.log(data);
         data.value.push(message.value[0]);
-        console.log(data);
         lastMessage = messages[0];  
         playSound();
       }
@@ -266,6 +263,22 @@ h3 {
   border-bottom: solid #cff0fd7f 1px;
 }
 
+.highlight {
+  animation: shine 1.5s ease-out;
+}
+
+@keyframes shine {
+  0% {
+    font-weight: 900;
+  }
+  30% {
+    font-weight: 900;
+  }
+  100% {
+    font-weight: 200;
+  }
+}
+
 .slides {
   position: relative;
   width: 42vw;
@@ -311,6 +324,10 @@ h3 {
   font-size: 1rem;
   color: #CFF0FD;
   margin: 0px;
+}
+
+.slide1 .big-text {
+  margin-top: 16px;
 }
 
 .slide2 .big-text {
